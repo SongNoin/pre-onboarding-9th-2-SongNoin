@@ -10,7 +10,6 @@ export const DefaultLayout = () => {
                   "footer"`}
       gridTemplateRows={"100px 1fr"}
       gridTemplateColumns={"1fr"}
-      h={"100vh"}
     >
       <GridItem area={"header"}>
         <Header />
