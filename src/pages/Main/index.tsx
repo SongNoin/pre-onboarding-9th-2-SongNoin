@@ -14,7 +14,7 @@ import { ITreavelItem } from "../../types/ITravelItem";
 
 export const MainPage = () => {
   const [travelList, setTravelList] = useState<ITreavelItem[]>([]);
-  const [detailModalData, setDetailModalData] = useState<ITreavelItem>();
+  const [selectedTravelItem, setSelectedTraverItem] = useState<ITreavelItem>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -29,11 +29,22 @@ export const MainPage = () => {
   }
 
   function onClickShowDetailModal(travelItem: ITreavelItem) {
-    setDetailModalData(travelItem);
+    setSelectedTraverItem(travelItem);
     onOpen();
   }
-  function onClickReserve() {
-    console.log("reserve");
+  function onClickReserve(travelItem: ITreavelItem) {
+    const cart = JSON.parse(String(localStorage.getItem("cart"))) || [];
+    if (cart.find((el: ITreavelItem) => el.idx === travelItem.idx)) {
+      alert("이미 장바구니에 있는 상품입니다");
+      return;
+    }
+    const newItem = { ...travelItem };
+
+    cart.push(newItem);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("장바구니에 담았습니다!");
+    window.dispatchEvent(new Event("storage"));
   }
 
   return (
@@ -45,8 +56,7 @@ export const MainPage = () => {
       </Flex>
       <Divider marginBottom={100} />
       <SimpleGrid
-        minChildWidth="xs"
-        columns={[2]}
+        columns={[null, 4]}
         spacingX={"10px"}
         spacingY={"50px"}
         justifyItems="center"
@@ -54,6 +64,7 @@ export const MainPage = () => {
         {travelList.map((travelItem) => {
           return (
             <ImageCard
+              key={travelItem.idx}
               idx={travelItem.idx}
               imageUrl={travelItem.mainImage}
               name={travelItem.name}
@@ -61,7 +72,7 @@ export const MainPage = () => {
               price={travelItem.price}
               buttonText={"예약"}
               onClickCard={() => onClickShowDetailModal(travelItem)}
-              onClickButton={onClickReserve}
+              onClickButton={() => onClickReserve(travelItem)}
             />
           );
         })}
@@ -69,7 +80,7 @@ export const MainPage = () => {
       <DetailModal
         isOpen={isOpen}
         onClose={onClose}
-        travelItem={detailModalData}
+        travelItem={selectedTravelItem}
       />
     </>
   );
