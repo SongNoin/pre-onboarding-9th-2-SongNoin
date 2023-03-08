@@ -16,12 +16,14 @@ export const Header = () => {
         height="100%"
         display={"flex"}
         alignItems={"center"}
+        onClick={() => navigation("/main")}
+        cursor="pointer"
       >
         Like a local
       </Heading>
       <Spacer />
       <Button onClick={() => navigation("/reservations")} colorScheme={"teal"}>
-        장바구니
+        장바구니 보러가기
       </Button>
     </Flex>
   );
