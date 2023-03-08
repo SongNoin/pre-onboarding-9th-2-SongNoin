@@ -1,11 +1,9 @@
 import {
   Text,
   Divider,
-  Flex,
   Heading,
   SimpleGrid,
   useDisclosure,
-  Center,
   Container,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
