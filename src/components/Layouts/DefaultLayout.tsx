@@ -15,7 +15,7 @@ export const DefaultLayout = () => {
       <GridItem area={"header"}>
         <Header />
       </GridItem>
-      <GridItem area={"main"}>
+      <GridItem area={"main"} p={"20"}>
         <Outlet />
       </GridItem>
     </Grid>
