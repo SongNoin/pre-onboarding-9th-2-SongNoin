@@ -32,9 +32,7 @@ export const MainPage = () => {
 
   async function getTravelList() {
     try {
-      const travelListRes = await axios.get(
-        "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f1be87a4-38e1-4c1e-a527-bd4775812374/mock_data.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230308%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230308T031358Z&X-Amz-Expires=86400&X-Amz-Signature=7427fb19258be7986db614b1e8b55f9e3379af104bfff7145880a71d8f68ad9e&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22mock_data.json%22&x-id=GetObject"
-      );
+      const travelListRes = await axios.get("./src/data/travel_data.json");
 
       let travelData = travelListRes.data;
 
